@@ -10,15 +10,16 @@
 #define FALSE 0
 typedef int QElemType; // 定义循环队列的数据元素的类型
 typedef int Status;
+
 // 定义循环队列
 typedef struct
 {
     QElemType *base;
-    int front;
-    int rear;
+    int front; // 头位置
+    int rear;  // 尾位置
 } SqQueue;
 
-/*构造一个空队列*/
+// 构造一个空队列
 Status InitQueue(SqQueue &Q)
 {
     Q.base = (QElemType *)malloc(MAXQSIZE * sizeof(QElemType));
@@ -29,14 +30,14 @@ Status InitQueue(SqQueue &Q)
     return OK;
 }
 
-/*清空队列*/
+// 清空队列
 void ClearQueue(SqQueue &Q)
 {
     Q.front = 0;
     Q.rear = 0;
 }
 
-/*销毁队列*/
+// 销毁队列
 void DestroyQueue(SqQueue &Q)
 {
     if (Q.base)
@@ -46,7 +47,7 @@ void DestroyQueue(SqQueue &Q)
     Q.rear = 0;
 }
 
-/*判断循环是否为满，最多99元素*/
+// 判断循环是否为满，最多99元素
 Status QueueFull(SqQueue &Q)
 {
     if ((Q.rear + 1) % MAXQSIZE == Q.front)
@@ -55,7 +56,7 @@ Status QueueFull(SqQueue &Q)
         return FALSE;
 }
 
-/*判断队列是否为空*/
+// 判断队列是否为空
 Status QueueEmpty(SqQueue &Q)
 {
     if (Q.front == Q.rear)
@@ -64,27 +65,27 @@ Status QueueEmpty(SqQueue &Q)
         return FALSE;
 }
 
-/*进队列*/
+// 进队列
 Status EnQueue(SqQueue &Q, QElemType e)
 {
     if (QueueFull(Q))
         return ERROR;
-    Q.base[Q.rear] = e;
+    Q.base[Q.rear] = e; // 先存元素后移动尾指针
     Q.rear = (Q.rear + 1) % MAXQSIZE;
     return OK;
 }
 
-/*出队列*/
+// 出队列
 Status DeQueue(SqQueue &Q, QElemType &e)
 {
     if (QueueEmpty(Q))
         return ERROR;
-    e = Q.base[Q.front];
+    e = Q.base[Q.front]; // 先取元素后移动头指针
     Q.front = (Q.front + 1) % MAXQSIZE;
     return OK;
 }
 
-/*遍历整个队列*/
+// 遍历整个队列
 void QueueTraverse(SqQueue Q)
 {
     if (QueueEmpty(Q))

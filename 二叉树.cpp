@@ -9,14 +9,14 @@
 typedef int Status;
 typedef int TElemType;
 
-/*定义链存储二叉树*/
+// 定义链存储二叉树
 typedef struct BiTNode
 {
-    TElemType data;
-    struct BiTNode *Ichild, *rchild;
+    TElemType data;                  // 节点存储的数据
+    struct BiTNode *Ichild, *rchild; // 左子节点和右子节点的指针。
 } BiTNode, *BiTree;
 
-// 先序法构造二叉树
+// 初始化二叉树
 Status PreCreateBiTree(BiTree &T)
 {
     int e;
@@ -39,17 +39,16 @@ Status PreCreateBiTree(BiTree &T)
 // 非递归中序遍历
 void NlnOrderTraverse(BiTree T)
 {
-    BiTree S[100], p;
+    BiTree S[100], p; // 定义一个栈存储访问的节点，p为当前访问的节点
     int top = 0;
-
     if (T)
     {
         S[top] = T;
         top++;
     }
-    while (top != 0)
+    while (top != 0) // 栈不为空
     {
-        while (S[top - 1])
+        while (S[top - 1]) // 一直向左走
         {
             S[top] = S[top - 1]->Ichild;
             top++;
@@ -65,6 +64,7 @@ void NlnOrderTraverse(BiTree T)
         }
     }
 }
+
 // 求二叉树结点个数
 int NodeCount(BiTree T)
 {
