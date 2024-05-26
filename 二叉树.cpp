@@ -1,4 +1,4 @@
-#include <malloc.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -96,7 +96,7 @@ int GetHeight(BiTree T)
         return m > n ? ++m : ++n;
     }
 }
-void main()
+int main()
 {
     BiTree T;
     int nodes, leafs, height;

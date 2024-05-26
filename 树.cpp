@@ -1,4 +1,13 @@
-#include <malloc.h>
+/*
+ * @Author: wei weeiii826@gmail.com
+ * @Date: 2024-04-22 12:25:29
+ * @LastEditors: wei weeiii826@gmail.com
+ * @LastEditTime: 2024-05-26 19:21:24
+ * @FilePath: /æ•°æ®ç»“æ„ä»£ç /æ ‘.cpp
+ * @Description: è¿™æ˜¯é»˜è®¤è®¾ç½®,è¯·è®¾ç½®`customMade`, æ‰“å¼€koroFileHeaderæŸ¥çœ‹é…ç½® è¿›è¡Œè®¾ç½®:
+ * https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -9,18 +18,18 @@
 typedef int Status;
 typedef int TElemType;
 
-/*¶¨ÒåÁ´´æ´¢¶ş²æÊ÷*/
+/*å®šä¹‰é“¾å­˜å‚¨äºŒå‰æ ‘*/
 typedef struct BiTNode
 {
     TElemType data;
     struct BiTNode *Ichild, *rchild;
 } BiTNode, *BiTree;
 
-// ÏÈĞò·¨¹¹Ôì¶ş²æÊ÷
+// å…ˆåºæ³•æ„é€ äºŒå‰æ ‘
 Status PreCreateBiTree(BiTree &T)
 {
     int e;
-    printf("ÇëÊäÈëÔªËØÖµ£º");
+    printf("è¯·è¾“å…¥å…ƒç´ å€¼ï¼š");
     scanf("%d", &e);
     if (e == 999)
     {
@@ -36,7 +45,7 @@ Status PreCreateBiTree(BiTree &T)
     }
     return OK;
 }
-// µİ¹éÏÈĞò±éÀú
+// é€’å½’å…ˆåºéå†
 void PreOrderTraverse(BiTree T)
 {
     if (T)
@@ -46,7 +55,7 @@ void PreOrderTraverse(BiTree T)
         PreOrderTraverse(T->rchild);
     }
 }
-// µİ¹éºóĞò±éÀú
+// é€’å½’ååºéå†
 void PostOrderTraverse(BiTree T)
 {
     if (T)
@@ -57,18 +66,18 @@ void PostOrderTraverse(BiTree T)
     }
 }
 
-void main()
+int main()
 {
     BiTree T;
-    printf("µİ¹éÏÈĞò´´½¨¶ş²æÊ÷(999Îª¿ÕÊ÷);\n");
-    PreCreateBiTree(T); // ²âÊÔÊäÈë:1 2 999 999 3 999 999
-    printf("µİ¹éÏÈĞò±éÀú: \n");
+    printf("é€’å½’å…ˆåºåˆ›å»ºäºŒå‰æ ‘(999ä¸ºç©ºæ ‘);\n");
+    PreCreateBiTree(T); // æµ‹è¯•è¾“å…¥:1 2 999 999 3 999 999
+    printf("é€’å½’å…ˆåºéå†: \n");
     PreOrderTraverse(T);
     printf("\n");
-    printf("µİ¹éÖĞĞò±éÀú: \n");
+    printf("é€’å½’ä¸­åºéå†: \n");
     PostOrderTraverse(T);
     printf("\n");
-    printf("µİ¹éºóĞò±éÀú: \n");
+    printf("é€’å½’ååºéå†: \n");
     PostOrderTraverse(T);
     printf("\n");
 }

@@ -1,4 +1,4 @@
-#include <malloc.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -24,22 +24,22 @@ typedef struct
 Status Init_TSMatrix(TSMatrix &M)
 {
     int t;
-    printf("ÇëÊäÈë¾ØÕóĞĞÊı\n");
+    printf("è¯·è¾“å…¥çŸ©é˜µè¡Œæ•°\n");
     scanf("%d", &M.mu);
-    printf("ÇëÊäÈë¾ØÕóÁĞÊı\n");
+    printf("è¯·è¾“å…¥çŸ©é˜µåˆ—æ•°\n");
     scanf("%d", &M.nu);
-    printf("ÇëÊäÈë¾ØÕó·ÇÁãÔª¸öÊı\n");
+    printf("è¯·è¾“å…¥çŸ©é˜µéé›¶å…ƒä¸ªæ•°\n");
     scanf("%d", &M.tu);
-    printf("ÇëÊäÈë¾ØÕóµÄ·ÇÁãÔªËØ\n");
+    printf("è¯·è¾“å…¥çŸ©é˜µçš„éé›¶å…ƒç´ \n");
     if (M.mu > 0 && M.nu > 0 && M.tu <= MAXSIZE)
     {
         for (t = 1; t <= M.tu; t++)
         {
-            printf("ÇëÊäÈëµÚ%d¸öÔªËØµÄĞĞºÅ:\n", t);
+            printf("è¯·è¾“å…¥ç¬¬%dä¸ªå…ƒç´ çš„è¡Œå·:\n", t);
             scanf("%d", &M.data[t].i);
-            printf("ÇëÊäÈëµÚ%d¸öÔªËØµÄÁĞºÅ:\n", t);
+            printf("è¯·è¾“å…¥ç¬¬%dä¸ªå…ƒç´ çš„åˆ—å·:\n", t);
             scanf("%d", &M.data[t].j);
-            printf("ÇëÊäÈëµÚ%d¸öÔªËØµÄÖµ:\n", t);
+            printf("è¯·è¾“å…¥ç¬¬%dä¸ªå…ƒç´ çš„å€¼:\n", t);
             scanf("%d", &M.data[t].e);
             if (M.data[t].i > M.mu || M.data[t].j > M.nu)
             {
@@ -82,7 +82,7 @@ Status FastTransposeSMatrix(TSMatrix M, TSMatrix &T)
 }
 Status TSMatrixTraverse(TSMatrix M)
 {
-    printf("µ±Ç°¾ØÕóÖĞµÄ·ÇÁãÔªËØÈıÔª×éÓĞ:\n");
+    printf("å½“å‰çŸ©é˜µä¸­çš„éé›¶å…ƒç´ ä¸‰å…ƒç»„æœ‰:\n");
     int t;
     for (t = 1; t <= M.tu; t++)
     {
@@ -95,19 +95,19 @@ Status TSMatrixTraverse(TSMatrix M)
     printf("\n");
     return OK;
 }
-void main()
+int main()
 {
     TSMatrix M, T;
     int flag;
-    printf("³õÊ¼»¯Òª×ªÖÃµÄ¾ØÕóM:\n");
+    printf("åˆå§‹åŒ–è¦è½¬ç½®çš„çŸ©é˜µM:\n");
     flag = Init_TSMatrix(M);
     if (!flag)
     {
-        printf("³õÊ¼»¯´íÎó£¡\n");
+        printf("åˆå§‹åŒ–é”™è¯¯ï¼\n");
         exit(1);
     }
     TSMatrixTraverse(M);
     FastTransposeSMatrix(M, T);
-    printf("×ªÖÃµÄ¾ØÕóT:\n");
+    printf("è½¬ç½®çš„çŸ©é˜µT:\n");
     TSMatrixTraverse(T);
 }

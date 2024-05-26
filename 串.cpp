@@ -27,7 +27,7 @@ Status StrAssign(SString &T, char *chars)
 }
 
 Status Concat(SString &T, SString S1, SString S2)
-{ // 算法4.2
+{
     int i;
     Status uncut;
     if (S1[0] + S2[0] <= MAXSTRLEN)
@@ -58,7 +58,7 @@ Status Concat(SString &T, SString S1, SString S2)
 }
 
 Status SubString(SString &Sub, SString S, int pos, int len)
-{ // 算法4.3
+{
     int i;
     if (pos < 1 || pos > S[0] || len < 0 || len > S[0] - pos + 1)
         return ERROR;
@@ -69,8 +69,7 @@ Status SubString(SString &Sub, SString S, int pos, int len)
 }
 
 int Index(SString S, SString T, int pos)
-{ // 算法4.5
-    // T非空，1≤pos≤StrLength(S)
+{
     int i = pos;
     int j = 1;
     while (i <= S[0] && j <= T[0])

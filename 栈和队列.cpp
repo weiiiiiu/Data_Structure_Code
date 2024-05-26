@@ -1,9 +1,9 @@
-#include <malloc.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 
-#define STACK_INIT_SIZE 100 // Õ»´æ´¢¿Õ¼äµÄ³õÊ¼·ÖÅäÁ¿
-#define STACKINCREMENT 10   // Õ»´æ´¢¿Õ¼äµÄ·ÖÅäÔöÁ¿
+#define STACK_INIT_SIZE 100 // æ ˆå­˜å‚¨ç©ºé—´çš„åˆå§‹åˆ†é…é‡
+#define STACKINCREMENT 10   // æ ˆå­˜å‚¨ç©ºé—´çš„åˆ†é…å¢é‡
 #define OK 1
 #define ERROR 0
 #define OVERFLOW -2
@@ -14,37 +14,38 @@ typedef int Status;
 
 typedef struct
 {
-    SElemType *base; // Õ»¿Õ¼ä»ùÖ·
-    SElemType *top;  // Õ»¶¥Ö¸Õë
-    int stacksize;   // µ±Ç°·ÖÅäµÄÕ»¿Õ¼ä´óĞ¡
+    SElemType *base; // æ ˆç©ºé—´åŸºå€
+    SElemType *top;  // æŒ‡å‘æ ˆé¡¶çš„ä¸‹ä¸€ä¸ªä½ç½® è¦æ’å…¥çš„ä½ç½®
+    int stacksize;   // å½“å‰åˆ†é…çš„æ ˆç©ºé—´å¤§å°
 } SqStack;
 
-/*³õÊ¼»¯Ò»¸öË³ĞòÕ»*/
+// åˆå§‹åŒ–ä¸€ä¸ªé¡ºåºæ ˆ
 Status InitStack(SqStack &S)
-{ // ¹¹ÔìÒ»¸ö¿ÕÕ»
+{
     S.base = (SElemType *)malloc(STACK_INIT_SIZE * sizeof(SElemType));
     if (!S.base)
         exit(OVERFLOW);
-    S.top = S.base; // Õ»¿ÕµÄ±êÖ¾ÎªbaseºÍtopÏàµÈ
+    S.top = S.base; // æ ˆç©ºçš„æ ‡å¿—ä¸ºbaseå’Œtopç›¸ç­‰
     S.stacksize = STACK_INIT_SIZE;
     return OK;
 }
 
-/*Ïú»ÙË³ĞòÕ»*/
+// é”€æ¯é¡ºåºæ ˆ
 void DestroyStack(SqStack &S)
-{ // Ïú»ÙÕ»Ê±ÊÍ·Å¿Õ¼ä£¬²¢ÇÒÊ¹µÃbase,topÎªNULL
+{ // é”€æ¯æ ˆæ—¶é‡Šæ”¾ç©ºé—´ï¼Œå¹¶ä¸”ä½¿å¾—base,topä¸ºNULL
     free(S.base);
     S.base = NULL;
     S.top = NULL;
     S.stacksize = 0;
 }
-/*Çå¿ÕË³ĞòÕ»*/
+
+// æ¸…ç©ºé¡ºåºæ ˆ
 void ClearStack(SqStack &S)
 {
     S.top = S.base;
 }
 
-/*ÅĞ¶ÏË³ĞòÕ»ÊÇ·ñÎª¿Õ*/
+// åˆ¤æ–­é¡ºåºæ ˆæ˜¯å¦ä¸ºç©º
 Status StackEmpty(SqStack S)
 {
     if (S.top == S.base)
@@ -53,12 +54,13 @@ Status StackEmpty(SqStack S)
         return FALSE;
 }
 
-/*»ñµÃÕ»ÄÚÔªËØ¸öÊı*/
+// è·å¾—æ ˆå†…å…ƒç´ ä¸ªæ•°
 int StackLength(SqStack S)
 {
-    return S.top - S.base;
+    return S.top - S.base; // æŒ‡é’ˆç›¸å‡å¾—åˆ°å…ƒç´ ä¸ªæ•° 4ä¸ªå­—èŠ‚è‡ªåŠ¨ä¸ºä¸€ä¸ªå…ƒç´ 
 }
-/*»ñµÃÕ»¶¥ÔªËØ£¬´æ·ÅÔÚeÖĞ*/
+
+// è·å¾—æ ˆé¡¶å…ƒç´ ï¼Œå­˜æ”¾åœ¨eä¸­
 Status GetTop(SqStack S, SElemType &e)
 {
     if (S.top == S.base)
@@ -66,7 +68,8 @@ Status GetTop(SqStack S, SElemType &e)
     e = *(S.top - 1);
     return OK;
 }
-/*Ñ¹Ò»¸öÔªËØ½øÕ»£¬¿Õ¼ä²»¹»µÄÊ±ºòÒªÀ©ÈİÁ¿*/
+
+// è¿›æ ˆ
 Status Push(SqStack &S, SElemType e)
 {
     if (S.top - S.base >= S.stacksize)
@@ -80,7 +83,8 @@ Status Push(SqStack &S, SElemType e)
     *S.top++ = e;
     return OK;
 }
-/*µ¯³öÕ»¶¥ÔªËØ£¬´æ·Åµ½eÖĞ*/
+
+// å¼¹å‡ºæ ˆé¡¶å…ƒç´ ï¼Œå­˜æ”¾åˆ°eä¸­
 Status Pop(SqStack &S, SElemType &e)
 {
     if (S.top == S.base)
@@ -93,22 +97,27 @@ void StackTraverse(SqStack S)
 {
     if (S.base == S.top)
     {
-        printf("µ±Ç°Õ»Îª¿ÕÕ»\n");
+        printf("å½“å‰æ ˆä¸ºç©ºæ ˆ\n");
     }
     else
     {
-        printf("µ±Ç°´ÓÕ»µ×µ½Õ»¶¥µÄÔªËØÎª: \n");
+        printf("å½“å‰ä»æ ˆåº•åˆ°æ ˆé¡¶çš„å…ƒç´ ä¸º: \n");
         while (S.top > S.base)
-            printf("%d ", *S.base++);
+            printf("%d ", *S.base++); // å…ˆè¾“å‡ºS.top-1,åŠ ä¸€åS.topæˆªæ­¢
         printf("\n");
     }
 }
 
+/*
+å°†ç»™å®šçš„åè¿›åˆ¶æ•°ä¸æ–­åœ°æ•´é™¤N,ç›´åˆ°å•†ä¸º0ã€‚
+å°†æ¯æ­¥è®¡ç®—æ‰€å¾—åˆ°çš„ä½™æ•°(ä»ç¬¬ä¸€æ­¥èµ·ä¾æ¬¡è®°å½•),å€’åºæ’åˆ—ã€‚
+æ ¹æ®ä½™æ•°çš„æ•°ä½,ä»¥Nä¸ºåŸºæ•°,ç»„æˆNè¿›åˆ¶æ•°ã€‚
+*/
 void conversion(int Num)
-{ // Ëã·¨3.1
-    SElemType e;
+{
+    SElemType e; // ç”¨äºå­˜å‚¨ä»æ ˆä¸­å¼¹å‡ºçš„å…ƒç´ ã€‚
     SqStack S;
-    InitStack(S);
+    InitStack(S); // åˆå§‹åŒ–ä¸€ä¸ªæ ˆ
     while (Num)
     {
         Push(S, Num % 8);
@@ -120,9 +129,9 @@ void conversion(int Num)
         printf("%d ", e);
     }
     printf("\n");
-} // conversion
+}
 
-void main()
+int main()
 {
     SqStack s;
     SElemType e1, e2;
@@ -132,21 +141,21 @@ void main()
         Push(s, rand() % 50);
     StackTraverse(s);
     GetTop(s, e1);
-    printf("µ±Ç°Õ»¶¥ÔªËØÎª:%d\n", e1);
+    printf("å½“å‰æ ˆé¡¶å…ƒç´ ä¸º:%d\n", e1);
     printf("\n");
-    printf("ÔªËØÖğ¸ö³öÕ»:\n");
+    printf("å…ƒç´ é€ä¸ªå‡ºæ ˆ:\n");
     while (!StackEmpty(s))
     {
         Pop(s, e2);
-        printf("µ±Ç°³öÕ»ÔªËØÎª:%d\n", e2);
+        printf("å½“å‰å‡ºæ ˆå…ƒç´ ä¸º:%d\n", e2);
         StackTraverse(s);
     }
     printf("\n");
 
-    // Ê®½øÖÆ×ª°Ë½øÖÆ
+    // åè¿›åˆ¶è½¬å…«è¿›åˆ¶
     int num;
-    printf("ÇëÊäÈëĞèÒª×ª»¯µÄ·Ç¸ºÊ®½øÖÆÕûÊı: \n");
+    printf("è¯·è¾“å…¥éœ€è¦è½¬åŒ–çš„éè´Ÿåè¿›åˆ¶æ•´æ•°: \n");
     scanf("%d", &num);
-    printf("½á¹ûÎª: \n");
+    printf("ç»“æœä¸º: \n");
     conversion(num);
 }

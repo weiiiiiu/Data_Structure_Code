@@ -1,4 +1,4 @@
-#include <malloc.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -9,12 +9,14 @@
 typedef int ElemType;
 typedef int Status;
 
+// å•é“¾è¡¨çš„èŠ‚ç‚¹
 typedef struct LNode
 {
     ElemType data;
     struct LNode *next;
 } LNode, *LinkList;
 
+// åŒå‘å¾ªç¯é“¾è¡¨çš„èŠ‚ç‚¹
 typedef struct DuLNode
 {
     ElemType data;
@@ -22,54 +24,53 @@ typedef struct DuLNode
     struct DuLNode *next;
 } DuLNode, *DuLinkList;
 
+// åˆå§‹åŒ–ä¸€ä¸ªå¸¦å¤´ç»“ç‚¹çš„åŒå‘å¾ªç¯é“¾è¡¨ã€‚
 Status ListInit_DuL(DuLinkList &L)
-{ // ³õÊ¼»¯µÚÒ»¸ö´øÍ·½áµãµÄË«ÏòÑ­»·Á´±í
+{
     L = (DuLinkList)malloc(sizeof(DuLNode));
     if (!L)
         exit(OVERFLOW);
-    L->prior = L;
+    L->prior = L; // å°†é“¾è¡¨çš„å¤´èŠ‚ç‚¹çš„å‰é©±å’Œåç»§éƒ½è®¾ç½®ä¸ºè‡ªèº«ï¼Œè¿™æ ·å°±å½¢æˆäº†ä¸€ä¸ªåªæœ‰ä¸€ä¸ªèŠ‚ç‚¹ï¼ˆå¤´èŠ‚ç‚¹ï¼‰çš„åŒå‘å¾ªç¯é“¾è¡¨
     L->next = L;
     return OK;
 }
 
+// è·å–åŒå‘å¾ªç¯é“¾è¡¨ä¸­ç¬¬iä¸ªå…ƒç´ çš„æŒ‡é’ˆã€‚
 DuLinkList GetElemP_DuL(DuLinkList va, int i)
 {
-    // vaÎª´øÍ·½áµãµÄË«ÏòÑ­»·Á´±íµÄÍ·Ö¸Õë
-    // µ±µÚi¸öÔªËØ½Úµã´æÔÚÊ±£¬·µ»ØµÚi¸ö½áµã
     DuLinkList p;
-    p = va->next;
+    p = va->next; // é“¾è¡¨çš„ç¬¬ä¸€ä¸ªèŠ‚ç‚¹ï¼ˆå¤´èŠ‚ç‚¹çš„ä¸‹ä¸€ä¸ªèŠ‚ç‚¹ï¼‰
     int j = 1;
-    while (p != va && j < i)
-    { // Ö¸ÕëÏòºó²éÕÒ£¬Ö±µ½pÖ¸ÏòµÚi¸öÔªËØ»òpÎªÍ·½áµã
+    while (p != va && j < i) // j==iæ—¶ï¼ŒpæŒ‡å‘ç¬¬iä¸ªå…ƒç´ 
+    {
         p = p->next;
         ++j;
     }
-    if (p == va && j < i)
-        return NULL; // µÚi¸öÔªËØ²»´æÔÚ
+    if (p == va && j < i) // æ²¡æœ‰æ‰¾åˆ°ç¬¬iä¸ªå…ƒç´ 
+        return NULL;
     else
         return p;
 }
 
+// åœ¨åŒå‘å¾ªç¯é“¾è¡¨çš„ç¬¬iä¸ªå…ƒç´ ä¹‹å‰æ’å…¥ä¸€ä¸ªæ–°å…ƒç´ ã€‚
 Status ListInsert_DuL(DuLinkList &L, int i, ElemType e)
-{ // Ëã·¨2.18
-    // ÔÚ´øÍ·½áµãµÄË«Á´Ñ­»·ÏßĞÔ±íLµÄµÚi¸öÔªËØÖ®Ç°²åÈëÔªËØe
-    // iµÄºÏ·¨ÖµÎª1¡Üi¡Ü±í³¤+1
-    DuLinkList p, s;
-    if (!(p = GetElemP_DuL(L, i))) // ÔÚLÖĞÈ·¶¨µÚi¸öÔªËØµÄÎ»ÖÃÖ¸Õëp
+{
+    DuLinkList p, s;               // å®šä¹‰ä¸¤ä¸ªæŒ‡å‘DuLNodeçš„æŒ‡é’ˆpå’Œs
+    if (!(p = GetElemP_DuL(L, i))) // é“¾è¡¨ä¸­æ²¡æœ‰ç¬¬iä¸ªå…ƒç´ ï¼Œå‡½æ•°å°†è¿”å›ERROR
         return ERROR;
-    if (!(s = (DuLinkList)malloc(sizeof(DuLNode))))
+    if (!(s = (DuLinkList)malloc(sizeof(DuLNode)))) // ä¸ºæ–°å…ƒç´ åˆ†é…å†…å­˜ï¼Œå¹¶å°†è¿”å›çš„æŒ‡é’ˆèµ‹å€¼ç»™sã€‚
         return ERROR;
     s->data = e;
-    s->prior = p->prior;
+    s->prior = p->prior; // ä»åŸæœ¬på‰å…ƒç´ å¼€å§‹å¤„ç†
     p->prior->next = s;
     s->next = p;
     p->prior = s;
     return OK;
 }
 
+// åˆ é™¤åŒå‘å¾ªç¯é“¾è¡¨çš„ç¬¬iä¸ªå…ƒç´ ã€‚
 Status ListDelete_DuL(DuLinkList &L, int i, ElemType &e)
-{ // Ëã·¨2.19
-    // É¾³ı´øÍ·½áµãµÄË«ÁªÑ­»·ÏßĞÔ±íLµÄµÚi¸öÔªËØ£¬iµÄºÏ·¨ÖµÎª1¡Ü¡Ü±í³¤
+{
     DuLinkList p;
     if (!(p = GetElemP_DuL(L, i)))
         return ERROR;
@@ -80,11 +81,12 @@ Status ListDelete_DuL(DuLinkList &L, int i, ElemType &e)
     return OK;
 }
 
+// éå†åŒå‘å¾ªç¯é“¾è¡¨å¹¶æ‰“å°å…ƒç´ 
 void ListTraverse_DuL(DuLinkList &L)
-{ // ±éÀú´øÍ·½áµãµÄË«ÏòÑ­»·Á´±íÖĞµÄÔªËØ£¬²¢´òÓ¡
+{
     DuLinkList p;
-    p = L->next;
-    printf("µ±Ç°Ë«ÏòÑ­»·Á´±íµÄÔªËØÎª:\n");
+    p = L->next; // å®šä¹‰ä¸€ä¸ªæŒ‡å‘DuLNodeçš„æŒ‡é’ˆpï¼Œå¹¶å°†å…¶åˆå§‹åŒ–ä¸ºé“¾è¡¨çš„ç¬¬ä¸€ä¸ªèŠ‚ç‚¹ï¼ˆå¤´èŠ‚ç‚¹çš„ä¸‹ä¸€ä¸ªèŠ‚ç‚¹ï¼‰ã€‚
+    printf("å½“å‰åŒå‘å¾ªç¯é“¾è¡¨çš„å…ƒç´ ä¸º:\n");
     while (p != L)
     {
         printf("%d ", p->data);
@@ -93,31 +95,30 @@ void ListTraverse_DuL(DuLinkList &L)
     printf("\n");
 }
 
+// åˆ›å»ºä¸€ä¸ªå¸¦å¤´ç»“ç‚¹çš„å•é“¾è¡¨ï¼Œå…ƒç´ å€¼æ˜¯éšæœºç”Ÿæˆçš„ã€‚
 void CreateList_L(LinkList &L, int n)
-{ // Ëã·¨2.11
-    // ÄæÎ»ĞòÊäÈë£¨Ëæ»ú²úÉú£©n¸öÔªËØµÄÖµ£¬½¨Á¢´ø±íÍ·½áµãµÄµ¥Á´ÏßĞÔ±íL
+{
     LinkList p;
     int i;
-    srand((unsigned)time(NULL));
-    L = (LinkList)malloc(sizeof(LNode));
+    srand((unsigned)time(NULL));         // ç”Ÿæˆéšæœºæ•°ç§å­
+    L = (LinkList)malloc(sizeof(LNode)); // åˆ›å»ºå¤´ç»“ç‚¹
     L->next = NULL;
     for (i = n; i > 0; --i)
     {
-        p = (LinkList)malloc(sizeof(LNode));
+        p = (LinkList)malloc(sizeof(LNode)); // åˆ›å»ºæ–°èŠ‚ç‚¹
         p->data = rand() % 50;
         p->next = L->next;
         L->next = p;
     }
 }
 
+// è·å–å•é“¾è¡¨ä¸­ç¬¬iä¸ªå…ƒç´ çš„å€¼ã€‚
 Status GetElem_L(LinkList &L, int i, ElemType &e)
-{ // Ëã·¨2.8
-    // LÎª´øÍ·½áµãµÄµ¥Á´±íµÄÍ·Ö¸Õë¡£
-    // µ±µÚi¸öÔªËØ´æÔÚÊ±£¬ÆäÖµ¸³¸øe²¢·µ»ØOK£¬·ñÔò·µ»ØERROR
+{
     LinkList p;
     p = L->next;
     int j = 1;
-    while (p && j < i)
+    while (p && j < i) // è¿™ä¸ªæ¡ä»¶æ£€æŸ¥å½“å‰èŠ‚ç‚¹æ˜¯å¦å­˜åœ¨ã€‚å¦‚æœpæ˜¯NULLï¼Œè¯´æ˜å·²ç»åˆ°è¾¾äº†é“¾è¡¨çš„æœ«å°¾ï¼Œè€Œé“¾è¡¨ä¸­æ²¡æœ‰ç¬¬iä¸ªå…ƒç´ 
     {
         p = p->next;
         ++j;
@@ -128,13 +129,13 @@ Status GetElem_L(LinkList &L, int i, ElemType &e)
     return OK;
 }
 
+// å•é“¾è¡¨çš„ç¬¬iä¸ªå…ƒç´ ä¹‹å‰æ’å…¥ä¸€ä¸ªæ–°å…ƒç´ ã€‚
 Status ListInsert_L(LinkList &L, int i, ElemType e)
-{ // Ëã·¨2.9
-    // ÔÚ´øÍ·½áµãµÄµ¥Á´ÏßĞÔ±íLµÄµÚi¸öÔªËØÖ®Ç°²åÈëÔªËØe
+{
     LinkList p, s;
-    p = L;
+    p = L; // pæŒ‡å‘å¤´ç»“ç‚¹
     int j = 0;
-    while (p && j < i - 1)
+    while (p && j < i - 1) // påæ’å…¥æ–°å…ƒç´ 
     {
         p = p->next;
         ++j;
@@ -148,29 +149,29 @@ Status ListInsert_L(LinkList &L, int i, ElemType e)
     return OK;
 }
 
+// åˆ é™¤å•é“¾è¡¨çš„ç¬¬iä¸ªå…ƒç´ ã€‚
 Status ListDelete_L(LinkList &L, int i, ElemType &e)
-{ // Ëã·¨2.10
-    // ÔÚ´øÍ·½áµãµÄµ¥Á´ÏßĞÔ±íLÖĞ£¬É¾³ıµÚi¸öÔªËØ£¬²¢ÓÉe·µ»ØÆäÖµ
+{
     LinkList p, q;
-    p = L;
+    p = L; // pæŒ‡å‘å¤´ç»“ç‚¹
     int j = 0;
     while (p->next && j < i - 1)
     {
-        p = p->next;
+        p = p->next; // æˆªæ­¢pä¸ºè¦åˆ é™¤å…ƒç´ çš„å‰é©±èŠ‚ç‚¹
         ++j;
     }
     if (!(p->next) || j > i - 1)
         return ERROR;
-    q = p->next;
+    q = p->next; // qä¸ºè¦åˆ é™¤çš„èŠ‚ç‚¹
     p->next = q->next;
+
     e = q->data;
     free(q);
     return OK;
 }
 
 void MergeList_L(LinkList &La, LinkList &Lb, LinkList &Lc)
-{ // Ëã·¨2.12
-    // ÒÑÖªµ¥Á´ÏßĞÔ±íLaºÍLbµÄÔªËØ°´
+{
     LinkList pa, pb, pc;
     pa = La->next;
     pb = Lb->next;
@@ -195,10 +196,10 @@ void MergeList_L(LinkList &La, LinkList &Lb, LinkList &Lc)
 }
 
 void ListTraverse_L(LinkList &L)
-{ // ±éÀúµ¥Á´±íÖĞµÄÔªËØ²¢´òÓ¡
+{ // éå†å•é“¾è¡¨ä¸­çš„å…ƒç´ å¹¶æ‰“å°
     LinkList p;
     p = L->next;
-    printf("µ±Ç°µ¥Á´±íÔªËØÎª£º\n");
+    printf("å½“å‰å•é“¾è¡¨å…ƒç´ ä¸ºï¼š\n");
     while (p)
     {
         printf("%d  ", p->data);
@@ -207,31 +208,31 @@ void ListTraverse_L(LinkList &L)
     printf("\n");
 }
 
-void main()
+int main()
 {
     LinkList la, lb, lc, ld;
     ElemType e1, e2, e3;
     int loc1, loc2, loc3;
     //*
-    // µ¥Á´±ílaµÄ»ù±¾²Ù×÷
+    // å•é“¾è¡¨laçš„åŸºæœ¬æ“ä½œ
     CreateList_L(la, 10);
     ListTraverse_L(la);
-    printf("ÇëÊäÈëĞèÒª²éÕÒµÄÔªËØÎ»ÖÃ£º\n");
+    printf("è¯·è¾“å…¥éœ€è¦æŸ¥æ‰¾çš„å…ƒç´ ä½ç½®ï¼š\n");
     scanf("%d", &loc1);
     GetElem_L(la, loc1, e1);
-    printf("Á´±íÖĞµÚ%d¸öÎ»ÖÃÉÏµÄÔªËØÊÇ£º%d \n", loc1, e1);
-    printf("ÇëÊäÈëĞèÒª²åÈëµÄÎ»ÖÃ¼°ÔªËØÖµ£º\n");
+    printf("é“¾è¡¨ä¸­ç¬¬%dä¸ªä½ç½®ä¸Šçš„å…ƒç´ æ˜¯ï¼š%d \n", loc1, e1);
+    printf("è¯·è¾“å…¥éœ€è¦æ’å…¥çš„ä½ç½®åŠå…ƒç´ å€¼ï¼š\n");
     scanf("%d %d", &loc2, &e2);
     ListInsert_L(la, loc2, e2);
     ListTraverse_L(la);
-    printf("ÇëÊäÈëĞèÒªÉ¾³ıµÄÎ»ÖÃ£º\n");
+    printf("è¯·è¾“å…¥éœ€è¦åˆ é™¤çš„ä½ç½®ï¼š\n");
     scanf("%d", &loc3);
     ListDelete_L(la, loc3, e3);
-    printf("É¾³ıµÄÔªËØÎª£º%d\n", e3);
+    printf("åˆ é™¤çš„å…ƒç´ ä¸ºï¼š%d\n", e3);
     ListTraverse_L(la);
     printf("\n");
 
-    // ºÏ²¢lb,lcÖÁld
+    // åˆå¹¶lb,lcè‡³ld
     CreateList_L(lb, 0);
     CreateList_L(lc, 0);
     int i, j;
@@ -239,17 +240,17 @@ void main()
     {
         ListInsert_L(lb, i, i);
     }
-    printf("´ıºÏ²¢Lb:\n");
+    printf("å¾…åˆå¹¶Lb:\n");
     ListTraverse_L(lb);
 
     for (j = 1; j <= 3; j++)
     {
         ListInsert_L(lc, j, j);
     }
-    printf("´ıºÏ²¢Lc:\n");
+    printf("å¾…åˆå¹¶Lc:\n");
     ListTraverse_L(lc);
     MergeList_L(lb, lc, ld);
-    printf("ºÏ²¢ºóµÄµ¥Á´±í£º\n");
+    printf("åˆå¹¶åçš„å•é“¾è¡¨ï¼š\n");
     ListTraverse_L(ld);
 
     DuLinkList L;
@@ -264,16 +265,16 @@ void main()
     }
     ListTraverse_DuL(L);
 
-    printf("ÇëÊäÈëĞèÒª²åÈëµÄÎ»ÖÃ¼°ÔªËØÖµ: \n");
+    printf("è¯·è¾“å…¥éœ€è¦æ’å…¥çš„ä½ç½®åŠå…ƒç´ å€¼: \n");
     scanf("%d %d", &lod1, &a1);
     ListInsert_DuL(L, lod1, a1);
     ListTraverse_DuL(L);
 
-    printf("ÇëÊäÈëĞèÒªÉ¾³ıµÄÎ»ÖÃ: \n");
+    printf("è¯·è¾“å…¥éœ€è¦åˆ é™¤çš„ä½ç½®: \n");
     scanf("%d", &lod2
 
     );
     ListDelete_DuL(L, lod2, a2);
-    printf("É¾³ıµÄÔªËØÎª:%d\n", a2);
+    printf("åˆ é™¤çš„å…ƒç´ ä¸º:%d\n", a2);
     ListTraverse_DuL(L);
 }

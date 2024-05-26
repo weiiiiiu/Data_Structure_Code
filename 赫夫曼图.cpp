@@ -95,7 +95,7 @@ void HuffmanCoding(HuffmanTree &HT, HuffmanCode &HC, int *w, int n)
     free(cd);
 }
 
-void main()
+int main()
 {
     HuffmanTree HT;
     HuffmanCode HC;

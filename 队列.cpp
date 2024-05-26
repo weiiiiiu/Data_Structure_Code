@@ -1,16 +1,16 @@
-#include <malloc.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 
 #define OK 1
 #define ERROR 0
 #define OVERFLOW -2
-#define MAXQSIZE 100 // ¶ÓÁĞ³¤¶È
+#define MAXQSIZE 100 // é˜Ÿåˆ—é•¿åº¦
 #define TRUE 1
 #define FALSE 0
-typedef int QElemType; // ¶¨ÒåÑ­»·¶ÓÁĞµÄÊı¾İÔªËØµÄÀàĞÍ
+typedef int QElemType; // å®šä¹‰å¾ªç¯é˜Ÿåˆ—çš„æ•°æ®å…ƒç´ çš„ç±»å‹
 typedef int Status;
-// ¶¨ÒåÑ­»·¶ÓÁĞ
+// å®šä¹‰å¾ªç¯é˜Ÿåˆ—
 typedef struct
 {
     QElemType *base;
@@ -18,7 +18,7 @@ typedef struct
     int rear;
 } SqQueue;
 
-/*¹¹ÔìÒ»¸ö¿Õ¶ÓÁĞ*/
+/*æ„é€ ä¸€ä¸ªç©ºé˜Ÿåˆ—*/
 Status InitQueue(SqQueue &Q)
 {
     Q.base = (QElemType *)malloc(MAXQSIZE * sizeof(QElemType));
@@ -29,14 +29,14 @@ Status InitQueue(SqQueue &Q)
     return OK;
 }
 
-/*Çå¿Õ¶ÓÁĞ*/
+/*æ¸…ç©ºé˜Ÿåˆ—*/
 void ClearQueue(SqQueue &Q)
 {
     Q.front = 0;
     Q.rear = 0;
 }
 
-/*Ïú»Ù¶ÓÁĞ*/
+/*é”€æ¯é˜Ÿåˆ—*/
 void DestroyQueue(SqQueue &Q)
 {
     if (Q.base)
@@ -46,7 +46,7 @@ void DestroyQueue(SqQueue &Q)
     Q.rear = 0;
 }
 
-/*ÅĞ¶ÏÑ­»·ÊÇ·ñÎªÂú£¬×î¶à99ÔªËØ*/
+/*åˆ¤æ–­å¾ªç¯æ˜¯å¦ä¸ºæ»¡ï¼Œæœ€å¤š99å…ƒç´ */
 Status QueueFull(SqQueue &Q)
 {
     if ((Q.rear + 1) % MAXQSIZE == Q.front)
@@ -55,7 +55,7 @@ Status QueueFull(SqQueue &Q)
         return FALSE;
 }
 
-/*ÅĞ¶Ï¶ÓÁĞÊÇ·ñÎª¿Õ*/
+/*åˆ¤æ–­é˜Ÿåˆ—æ˜¯å¦ä¸ºç©º*/
 Status QueueEmpty(SqQueue &Q)
 {
     if (Q.front == Q.rear)
@@ -64,7 +64,7 @@ Status QueueEmpty(SqQueue &Q)
         return FALSE;
 }
 
-/*½ø¶ÓÁĞ*/
+/*è¿›é˜Ÿåˆ—*/
 Status EnQueue(SqQueue &Q, QElemType e)
 {
     if (QueueFull(Q))
@@ -74,7 +74,7 @@ Status EnQueue(SqQueue &Q, QElemType e)
     return OK;
 }
 
-/*³ö¶ÓÁĞ*/
+/*å‡ºé˜Ÿåˆ—*/
 Status DeQueue(SqQueue &Q, QElemType &e)
 {
     if (QueueEmpty(Q))
@@ -84,14 +84,14 @@ Status DeQueue(SqQueue &Q, QElemType &e)
     return OK;
 }
 
-/*±éÀúÕû¸ö¶ÓÁĞ*/
+/*éå†æ•´ä¸ªé˜Ÿåˆ—*/
 void QueueTraverse(SqQueue Q)
 {
     if (QueueEmpty(Q))
-        printf("µ±Ç°¶ÓÁĞÎª¿Õ\n");
+        printf("å½“å‰é˜Ÿåˆ—ä¸ºç©º\n");
     else
     {
-        printf("µ±Ç°¶ÓÁĞÔªËØÎª:");
+        printf("å½“å‰é˜Ÿåˆ—å…ƒç´ ä¸º:");
         while (Q.front != Q.rear)
         {
             printf("%d ", Q.base[Q.front]);
@@ -101,7 +101,7 @@ void QueueTraverse(SqQueue Q)
     }
 }
 
-void main()
+int main()
 {
     int i;
     QElemType e;
@@ -115,7 +115,7 @@ void main()
     while (!QueueEmpty(Q))
     {
         DeQueue(Q, e);
-        printf("³ö¶ÓµÄÔªËØÊÇ%d\n", e);
+        printf("å‡ºé˜Ÿçš„å…ƒç´ æ˜¯%d\n", e);
         QueueTraverse(Q);
     }
 }

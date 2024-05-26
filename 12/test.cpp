@@ -79,11 +79,11 @@ void CreateFUDN(MGraph &G)
     FILE *file;
     file = fopen("fudn.txt", "r");
     // 读入元素的个数和弧的个数
-    fscanf(file, "% d", &G.vexnum); // fscanf 从一个流中执行格式化输入，fscanf 遇到空格和换行时结束
-    fscanf(file, "% d", &G.arcnum); //% d: 读入一个十进制整数
+    fscanf(file, "%d", &G.vexnum); // fscanf 从一个流中执行格式化输入，fscanf 遇到空格和换行时结束
+    fscanf(file, "%d", &G.arcnum); //% d: 读入一个十进制整数
     // 把顶点元素的内容读入到数组中
     for (i = 0; i < G.vexnum; i++)
-        fscanf(file, "% s", &G.vexs[i]); //% s: 读入一个字符串，遇空格结束
+        fscanf(file, "%s", &G.vexs[i]); //% s: 读入一个字符串，遇空格结束
     // 初始化邻接矩阵
     for (i = 0; i < G.vexnum; i++)
         for (j = 0; j < G.vexnum; j++)
@@ -94,7 +94,7 @@ void CreateFUDN(MGraph &G)
     // 输入弧
     for (k = 0; k < G.arcnum; k++)
     {
-        fscanf(file, "% s% s% d", va, vb, &w);
+        fscanf(file, "%s%s%d", va, vb, &w);
         i = LocateVex(G, va);
         j = LocateVex(G, vb);
         G.arcs[i][j].adj = w;
@@ -150,7 +150,7 @@ void DFS(MGraph G, int v)
 { // 深度遍历访问从 v 开始的图
     int w;
     visited[v] = TRUE; // 设置当前顶点被访问过
-    printf("% s", G.vexs[v]);
+    printf("%s", G.vexs[v]);
     for (w = FirstAdjVex(G, G.vexs[v]); w >= 0; w = NextAdjVex(G, G.vexs[v], G.vexs[w]))
         if (!visited[w])
             DFS(G, w);
@@ -164,7 +164,7 @@ void DFSTraverse(MGraph G)
         if (!visited[v])
             DFS(G, v);
 }
-void main()
+int main()
 {
     MGraph G;
     // 从文件创建无向网

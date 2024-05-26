@@ -87,18 +87,18 @@ void CreateUDG(ALGraph &G)
     VertexType va, vb;
     G.kind = UDG;
     printf("请输入顶点数和边数（空格隔开）:\n");
-    scanf("% d% d", &G.vexnum, &G.arcnum);
-    printf("请输入 % d 个顶点内容（空格隔开）:\n", G.vexnum);
+    scanf("%d %d", &G.vexnum, &G.arcnum);
+    printf("请输入 %d 个顶点内容（空格隔开）:\n", G.vexnum);
     for (i = 0; i < G.vexnum; i++)
     {
-        scanf("% s", G.vertices[i].data);
+        scanf("%s", G.vertices[i].data);
         G.vertices[i].firstarc = NULL;
     }
 
     for (k = 0; k < G.arcnum; k++)
     {
-        printf("请输入第 % d 个条边的尾顶点，头顶点（空格隔开）\n", k + 1);
-        scanf("% s% s", va, vb);
+        printf("请输入第 %d 个条边的尾顶点，头顶点（空格隔开）\n", k + 1);
+        scanf("%s %s", va, vb);
         i = LocateVex(G, va);
         j = LocateVex(G, vb);
         // 构造一个弧节点 * p1
@@ -181,7 +181,7 @@ void BFSTraverse(ALGraph &G)
         if (!visited[v])
         {
             Q[rear++] = v;
-            printf("% s", G.vertices[v].data);
+            printf("%s", G.vertices[v].data);
             visited[v] = TRUE;
             while (front < rear)
             {                   // 队列非空
@@ -193,7 +193,7 @@ void BFSTraverse(ALGraph &G)
                     {
                         Q[rear++] = w; // w 入队列
                         visited[w] = TRUE;
-                        printf("% s", G.vertices[w].data);
+                        printf("%s", G.vertices[w].data);
                     }
                 }
             }
@@ -202,7 +202,7 @@ void BFSTraverse(ALGraph &G)
     printf("\n");
 }
 
-void main()
+int main()
 {
 
     ALGraph G;    // 声明了一个名为 G 的邻接表图
