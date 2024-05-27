@@ -12,6 +12,7 @@
 typedef int Status;
 typedef unsigned char SString[MAXSTRLEN + 1];
 
+// 字符串赋值给我们自定义的字符串类型SString
 Status StrAssign(SString &T, char *chars)
 {
     int i;
@@ -26,6 +27,7 @@ Status StrAssign(SString &T, char *chars)
     }
 }
 
+// 串S1和S2连接成新串T
 Status Concat(SString &T, SString S1, SString S2)
 {
     int i;
@@ -57,6 +59,7 @@ Status Concat(SString &T, SString S1, SString S2)
     return uncut;
 }
 
+// 串S的第pos个字符起长度为len的子串
 Status SubString(SString &Sub, SString S, int pos, int len)
 {
     int i;
@@ -68,6 +71,7 @@ Status SubString(SString &Sub, SString S, int pos, int len)
     return OK;
 }
 
+// 返回子串T在主串S中第pos个字符之后的位置
 int Index(SString S, SString T, int pos)
 {
     int i = pos;
@@ -90,6 +94,7 @@ int Index(SString S, SString T, int pos)
     else
         return 0;
 }
+
 int main()
 {
     SString s1;

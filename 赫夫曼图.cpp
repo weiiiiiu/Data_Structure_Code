@@ -9,14 +9,15 @@
 /*定义数据类型*/
 typedef struct
 {
-    int weight;
-    int parent;
-    int lchild;
-    int rchild;
+    int weight; // 节点权重
+    int parent; // 父节点索引
+    int lchild; // 左子节点索引
+    int rchild; // 右子节点索引
 } HTNode, *HuffmanTree;
 
-typedef char **HuffmanCode;
+typedef char **HuffmanCode; // 定义赫夫曼编码的数据类型
 
+// 寻找赫夫曼树中权重最小的节
 int min(HuffmanTree &HT, int i)
 {
     int j, flag;
@@ -30,6 +31,8 @@ int min(HuffmanTree &HT, int i)
     HT[flag].parent = 1;
     return flag;
 }
+
+// 从赫夫曼树中选择两个权重最小的节点
 void Select(HuffmanTree &HT, int i, int &s1, int &s2)
 {
     int t;
@@ -43,6 +46,7 @@ void Select(HuffmanTree &HT, int i, int &s1, int &s2)
     }
 }
 
+// 构造赫夫曼树，并生成赫夫曼编码
 void HuffmanCoding(HuffmanTree &HT, HuffmanCode &HC, int *w, int n)
 {
     int m, i, j;
@@ -97,10 +101,10 @@ void HuffmanCoding(HuffmanTree &HT, HuffmanCode &HC, int *w, int n)
 
 int main()
 {
-    HuffmanTree HT;
-    HuffmanCode HC;
-    int w[8] = {5, 29, 7, 8, 14, 23, 3, 11};
-    HuffmanCoding(HT, HC, w, 8);
-    for (int i = 1; i <= 8; i++)
+    HuffmanTree HT;                          // 赫夫曼树
+    HuffmanCode HC;                          // 赫夫曼编码
+    int w[8] = {5, 29, 7, 8, 14, 23, 3, 11}; // 节点权重
+    HuffmanCoding(HT, HC, w, 8);             // 构造赫夫曼树，并生成赫夫曼编码
+    for (int i = 1; i <= 8; i++)             // 输出赫夫曼编码
         puts(HC[i]);
 }

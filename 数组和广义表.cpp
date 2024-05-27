@@ -9,18 +9,21 @@ typedef int Status;
 typedef int ElemType;
 
 #define MAXSIZE 12500
+// 定义三元组结构
 typedef struct
 {
-    int i, j;
-    ElemType e;
+    int i, j;   // 行号和列号
+    ElemType e; // 值
 } Triple;
 
+// 定义稀疏矩阵结构
 typedef struct
 {
-    Triple data[MAXSIZE + 1];
-    int mu, nu, tu;
+    Triple data[MAXSIZE + 1]; // 三元组表，data[0]未用
+    int mu, nu, tu;           // 矩阵的行数、列数和非零元素个数
 } TSMatrix;
 
+// 初始化稀疏矩阵
 Status Init_TSMatrix(TSMatrix &M)
 {
     int t;
@@ -51,7 +54,7 @@ Status Init_TSMatrix(TSMatrix &M)
         return ERROR;
     return OK;
 }
-
+// 快速转置稀疏矩阵
 Status FastTransposeSMatrix(TSMatrix M, TSMatrix &T)
 {
     int col, t, p, q;
@@ -97,17 +100,17 @@ Status TSMatrixTraverse(TSMatrix M)
 }
 int main()
 {
-    TSMatrix M, T;
+    TSMatrix M, T; // 原矩阵M和转置矩阵T
     int flag;
     printf("初始化要转置的矩阵M:\n");
-    flag = Init_TSMatrix(M);
+    flag = Init_TSMatrix(M); // 初始化矩阵M
     if (!flag)
     {
         printf("初始化错误！\n");
         exit(1);
     }
-    TSMatrixTraverse(M);
-    FastTransposeSMatrix(M, T);
+    TSMatrixTraverse(M);        // 遍历矩阵M
+    FastTransposeSMatrix(M, T); // 快速转置矩阵M，结果存储在矩阵T中
     printf("转置的矩阵T:\n");
     TSMatrixTraverse(T);
 }
