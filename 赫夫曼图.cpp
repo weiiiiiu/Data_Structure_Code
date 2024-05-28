@@ -6,24 +6,19 @@
 #define ERROR 0
 #define OVERFLOW -2
 
-/*¶¨ÒåÊı¾İÀàĞÍ*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 typedef struct
 {
-    int weight; // ½ÚµãÈ¨ÖØ
-    int parent; // ¸¸½ÚµãË÷Òı
-    int lchild; // ×ó×Ó½ÚµãË÷Òı
-    int rchild; // ÓÒ×Ó½ÚµãË÷Òı
+    int weight; // ï¿½Úµï¿½È¨ï¿½ï¿½
+    int parent; // ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½
+    int lchild; // ï¿½ï¿½ï¿½Ó½Úµï¿½ï¿½ï¿½ï¿½ï¿½
+    int rchild; // ï¿½ï¿½ï¿½Ó½Úµï¿½ï¿½ï¿½ï¿½ï¿½
 } HTNode, *HuffmanTree;
 
-typedef char **HuffmanCode; // ¶¨ÒåºÕ·òÂü±àÂëµÄÊı¾İÀàĞÍ
+typedef char **HuffmanCode; // ï¿½ï¿½ï¿½ï¿½Õ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-/**
- * @description: ºÕ·òÂüÊ÷HTµÄÇ°i¸ö½ÚµãÖĞ£¬
- * ÕÒµ½È¨Öµ×îĞ¡ÇÒÎ´±»Ñ¡ÖĞ£¨¼´ÆäparentÊôĞÔÎª0£©µÄ½ÚµãµÄË÷Òı
- * @param {HuffmanTree} &HT
  * @param {int} i
  * @return {*}
- */
 int min(HuffmanTree &HT, int i)
 {
     int j, flag;
@@ -39,8 +34,8 @@ int min(HuffmanTree &HT, int i)
 }
 
 /**
- * @description: ÔÚºÕ·òÂüÊ÷HTµÄÇ°i¸ö½ÚµãÖĞ£¬
- * ÕÒµ½Á½¸öÈ¨Öµ×îĞ¡ÇÒÎ´±»Ñ¡ÖĞµÄ½Úµã£¬½«ËüÃÇµÄË÷Òı·Ö±ğ¸³Öµ¸øs1ºÍs2
+ * @description: ï¿½ÚºÕ·ï¿½ï¿½ï¿½ï¿½ï¿½HTï¿½ï¿½Ç°iï¿½ï¿½ï¿½Úµï¿½ï¿½Ğ£ï¿½
+ * ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½È¨Öµï¿½ï¿½Ğ¡ï¿½ï¿½Î´ï¿½ï¿½Ñ¡ï¿½ĞµÄ½Úµã£¬ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Öµï¿½ï¿½s1ï¿½ï¿½s2
  * @return {*}
  */
 void Select(HuffmanTree &HT, int i, int &s1, int &s2)
@@ -56,7 +51,7 @@ void Select(HuffmanTree &HT, int i, int &s1, int &s2)
     }
 }
 
-// Éú³ÉºÕ·òÂü±àÂë
+// ï¿½ï¿½ï¿½ÉºÕ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void HuffmanCoding(HuffmanTree &HT, HuffmanCode &HC, int *w, int n)
 {
     int m, i, j;
@@ -111,10 +106,10 @@ void HuffmanCoding(HuffmanTree &HT, HuffmanCode &HC, int *w, int n)
 
 int main()
 {
-    HuffmanTree HT;                          // ºÕ·òÂüÊ÷
-    HuffmanCode HC;                          // ºÕ·òÂü±àÂë
-    int w[8] = {5, 29, 7, 8, 14, 23, 3, 11}; // ½ÚµãÈ¨ÖØ
-    HuffmanCoding(HT, HC, w, 8);             // ¹¹ÔìºÕ·òÂüÊ÷£¬²¢Éú³ÉºÕ·òÂü±àÂë
-    for (int i = 1; i <= 8; i++)             // Êä³öºÕ·òÂü±àÂë
+    HuffmanTree HT;                          // ï¿½Õ·ï¿½ï¿½ï¿½ï¿½ï¿½
+    HuffmanCode HC;                          // ï¿½Õ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int w[8] = {5, 29, 7, 8, 14, 23, 3, 11}; // ï¿½Úµï¿½È¨ï¿½ï¿½
+    HuffmanCoding(HT, HC, w, 8);             // ï¿½ï¿½ï¿½ï¿½Õ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÉºÕ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    for (int i = 1; i <= 8; i++)             // ï¿½ï¿½ï¿½ï¿½Õ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         puts(HC[i]);
 }

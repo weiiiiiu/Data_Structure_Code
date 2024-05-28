@@ -31,8 +31,8 @@ Status PreCreateBiTree(BiTree &T)
         if (!(T = (BiTNode *)malloc(sizeof(BiTNode))))
             exit(OVERFLOW);
         T->data = e;
-        PreCreateBiTree(T->Ichild);
-        PreCreateBiTree(T->rchild);
+        PreCreateBiTree(T->Ichild); // 递归创建左子树
+        PreCreateBiTree(T->rchild); // 递归创建右子树
     }
     return OK;
 }
@@ -44,22 +44,22 @@ void NlnOrderTraverse(BiTree T)
     if (T)
     {
         S[top] = T;
-        top++;
+        top++; // top为要插入的位置
     }
     while (top != 0) // 栈不为空
     {
-        while (S[top - 1]) // 一直向左走
+        while (S[top - 1]) // 当前二叉树节点不为空
         {
-            S[top] = S[top - 1]->Ichild;
+            S[top] = S[top - 1]->Ichild; // 将左子树节点入栈 第二轮遍历右节点的左子树
             top++;
         }
-        top--;
+        top--; // 将NULL出栈 左子树遍历完成
         if (top != 0)
         {
-            p = S[top - 1];
+            p = S[top - 1]; // 左子树节点依次出栈NULL
             top--;
             printf("%d", p->data);
-            S[top] = p->rchild;
+            S[top] = p->rchild; // 将右子树节点入栈   右节点的左子树可能为NULL
             top++;
         }
     }
@@ -78,11 +78,12 @@ int LeafCount(BiTree T)
 {
     if (!T)
         return 0;
-    else if (!T->Ichild && !T->rchild)
+    else if (!T->Ichild && !T->rchild) // 当前为叶子节点
         return 1;
     else
-        return (LeafCount(T->Ichild) + LeafCount(T->rchild));
+        return (LeafCount(T->Ichild) + LeafCount(T->rchild)); // 计算左子树和右子树的叶子节点数量
 }
+
 // 求二叉树的深度
 int GetHeight(BiTree T)
 {
@@ -92,10 +93,11 @@ int GetHeight(BiTree T)
     {
         int m, n;
         m = GetHeight(T->Ichild);
-        n = GetHeight(T->rchild);
+        n = GetHeight(T->rchild); // 根节点也算一层
         return m > n ? ++m : ++n;
     }
 }
+
 int main()
 {
     BiTree T;
