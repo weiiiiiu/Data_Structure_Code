@@ -71,7 +71,7 @@ Status SubString(SString &Sub, SString S, int pos, int len)
     return OK;
 }
 
-// 返回子串T在主串S中第pos个字符之后的位置
+// 主字符串S中查找子字符串T的位置
 int Index(SString S, SString T, int pos)
 {
     int i = pos;

@@ -83,6 +83,7 @@ Status FastTransposeSMatrix(TSMatrix M, TSMatrix &T)
     }
     return OK;
 }
+
 Status TSMatrixTraverse(TSMatrix M)
 {
     printf("当前矩阵中的非零元素三元组有:\n");
@@ -98,6 +99,7 @@ Status TSMatrixTraverse(TSMatrix M)
     printf("\n");
     return OK;
 }
+
 int main()
 {
     TSMatrix M, T; // 原矩阵M和转置矩阵T

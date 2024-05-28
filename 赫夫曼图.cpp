@@ -17,7 +17,13 @@ typedef struct
 
 typedef char **HuffmanCode; // 定义赫夫曼编码的数据类型
 
-// 寻找赫夫曼树中权重最小的节
+/**
+ * @description: 赫夫曼树HT的前i个节点中，
+ * 找到权值最小且未被选中（即其parent属性为0）的节点的索引
+ * @param {HuffmanTree} &HT
+ * @param {int} i
+ * @return {*}
+ */
 int min(HuffmanTree &HT, int i)
 {
     int j, flag;
@@ -32,7 +38,11 @@ int min(HuffmanTree &HT, int i)
     return flag;
 }
 
-// 从赫夫曼树中选择两个权重最小的节点
+/**
+ * @description: 在赫夫曼树HT的前i个节点中，
+ * 找到两个权值最小且未被选中的节点，将它们的索引分别赋值给s1和s2
+ * @return {*}
+ */
 void Select(HuffmanTree &HT, int i, int &s1, int &s2)
 {
     int t;
@@ -46,7 +56,7 @@ void Select(HuffmanTree &HT, int i, int &s1, int &s2)
     }
 }
 
-// 构造赫夫曼树，并生成赫夫曼编码
+// 生成赫夫曼编码
 void HuffmanCoding(HuffmanTree &HT, HuffmanCode &HC, int *w, int n)
 {
     int m, i, j;
