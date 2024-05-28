@@ -10,16 +10,19 @@
 typedef struct
 {
     int weight; // 节点权重
-    int parent; // 父节点索引
-    int lchild; // 左子节点索引
     int rchild; // 右子节点索引
+    int lchild; // 左子节点索引
+    int parent; // 父节点索引
 } HTNode, *HuffmanTree;
 
 typedef char **HuffmanCode; // 定义赫夫曼编码的数据类型
 
- * 找到权值最小且未被选中（即其parent属性为0）的节点的索引
+/**
+ * @description:  找到权值最小且未被选中（即其parent属性为0）的节点的索引
+ * @param {HuffmanTree} &HT
  * @param {int} i
  * @return {*}
+ */
 int min(HuffmanTree &HT, int i)
 {
     int j, flag;
