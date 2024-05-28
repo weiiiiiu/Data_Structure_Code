@@ -6,17 +6,18 @@
 #define ERROR 0
 #define OVERFLOW -2
 
-/*������������*/
+/*定义数据类型*/
 typedef struct
 {
-    int weight; // �ڵ�Ȩ��
-    int parent; // ���ڵ�����
-    int lchild; // ���ӽڵ�����
-    int rchild; // ���ӽڵ�����
+    int weight; // 节点权重
+    int parent; // 父节点索引
+    int lchild; // 左子节点索引
+    int rchild; // 右子节点索引
 } HTNode, *HuffmanTree;
 
-typedef char **HuffmanCode; // ����շ����������������
+typedef char **HuffmanCode; // 定义赫夫曼编码的数据类型
 
+ * 找到权值最小且未被选中（即其parent属性为0）的节点的索引
  * @param {int} i
  * @return {*}
 int min(HuffmanTree &HT, int i)
@@ -34,8 +35,8 @@ int min(HuffmanTree &HT, int i)
 }
 
 /**
- * @description: �ںշ�����HT��ǰi���ڵ��У�
- * �ҵ�����Ȩֵ��С��δ��ѡ�еĽڵ㣬�����ǵ������ֱ�ֵ��s1��s2
+ * @description: 在赫夫曼树HT的前i个节点中，
+ * 找到两个权值最小且未被选中的节点，将它们的索引分别赋值给s1和s2
  * @return {*}
  */
 void Select(HuffmanTree &HT, int i, int &s1, int &s2)
@@ -51,7 +52,7 @@ void Select(HuffmanTree &HT, int i, int &s1, int &s2)
     }
 }
 
-// ���ɺշ�������
+// 生成赫夫曼编码
 void HuffmanCoding(HuffmanTree &HT, HuffmanCode &HC, int *w, int n)
 {
     int m, i, j;
@@ -106,10 +107,10 @@ void HuffmanCoding(HuffmanTree &HT, HuffmanCode &HC, int *w, int n)
 
 int main()
 {
-    HuffmanTree HT;                          // �շ�����
-    HuffmanCode HC;                          // �շ�������
-    int w[8] = {5, 29, 7, 8, 14, 23, 3, 11}; // �ڵ�Ȩ��
-    HuffmanCoding(HT, HC, w, 8);             // ����շ������������ɺշ�������
-    for (int i = 1; i <= 8; i++)             // ����շ�������
+    HuffmanTree HT;                          // 赫夫曼树
+    HuffmanCode HC;                          // 赫夫曼编码
+    int w[8] = {5, 29, 7, 8, 14, 23, 3, 11}; // 节点权重
+    HuffmanCoding(HT, HC, w, 8);             // 构造赫夫曼树，并生成赫夫曼编码
+    for (int i = 1; i <= 8; i++)             // 输出赫夫曼编码
         puts(HC[i]);
 }
