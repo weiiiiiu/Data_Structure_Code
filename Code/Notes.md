@@ -1,10 +1,25 @@
-
-
-
+# 代码
 
 赋值号记为等号会不会好记一点    给出图片中代码 注释以及伪代码
 
-遍历数组
+
+
+## 线性表数组实现（顺序表）
+
+> 基于数组
+
+```c
+typedef struct seqList
+{
+  int n;									// 顺序表的长度
+  int maxLength;					// 顺序表的最大允许长度
+  ElemType *element;  	  // 指针 element 指向顺序表的存储空间的首地址
+}SeqList;
+```
+
+
+
+### 遍历数组
 
 ```c
 int main() {
@@ -22,18 +37,18 @@ int main() {
 
 
 
-
-
-顺序表查找
+### 顺序表查找
 
 ```c
-#define MAXSIZE 100  // 定义顺序表的最大长度
-
-typedef struct {
-    int element[MAXSIZE];  // 存储顺序表元素的数组
-    int n;                 // 顺序表中元素的数量
-} SeqList;
-
+Bool Find(SeqList L, int i, ElemType *x)
+{
+  //越界判断
+  if(i<0 || i>L.n-1)
+    return 0;
+ 
+  *x = L.element[i];
+  return 1;
+}
 
 
 int find(SeqList L, int x) {
@@ -49,9 +64,79 @@ int find(SeqList L, int x) {
 
 ```
 
+### 顺序表的插入
+
+```c
+Bool Insert(SeqList L, int i, ElemType x)
+{
+  int j;
+  if(i<-1 || i>L->n-1)									// 判断下标 i 是否越界
+    return 0;
+  if(L->n == L->maxLength)						 	// 判断顺序表存储空间是否已满
+    return 0;
+  
+  for(j = L->n-1; j>i; j--)
+    L->element[j+1] = L->element[j];	 	// 从前往后逐个后移元素
+  
+  L->element[i+1] = x;									// 将新元素 x 放入下标 i+1 的位置
+  L->n = L->n +1;
+  return 1;
+}
+```
+
+顺序表插入算法的平均时间复杂度为 O(n)，插入一个新元素时需移动元素的平均次数为
+$$
+E_i = \sum_{i=-1}^{n-1}{n-i-1} = \frac{n}{2}
+$$
+
+### 顺序表的删除
+
+```c
+Bool Delete(SeqList L, int i, ElemType x)
+{
+  int j;
+  if(i<0 || i>L->n-1)										// 判断下标 i 是否越界
+    return 0;
+  if(!L->n)						 									// 判断顺序表是否为空
+    return 0;
+  
+  for(j = i+1; j<L->n; j++)
+    L->element[j-1] = L->element[j]; 		// 从前往后逐个前移元素
+  L->n--;																// 表长减 1
+  return 1;
+}
+```
+
+顺序表删除算法的平均时间复杂度为 O(n)，删除一个新元素时需要移动元素的平均次数为
+$$
+E_d = \sum_{i=0}^{n-1}{n-i-1} = \frac{n-1}{2}
+$$
 
 
-单链表的查找
+
+
+
+## 线性表链表实现（链表）
+
+> 第一个元素所在的节点为头结点  存放头结点地址的指针为头指针first  空链表则first指向NULL 链表尾节点指针域指向NULL
+
+### 定义
+
+```c
+typedef struct node
+{
+  ElemType element;					// 结点的数据域
+  struct node *link;				// 结点的指针域
+}Node;
+
+typedef struct singleList
+{  
+  Node *first;              //存放头结点地址的指针
+  int n;                    //元素个数
+}SingleList;
+```
+
+### 单链表的查找
 
 ```c
 Bool find(SingleList L, int x)
@@ -69,11 +154,7 @@ Bool find(SingleList L, int x)
 
 ```
 
-
-
-
-
-单链表中查找第 `i` 个节点的值
+### 单链表中查找第 `i` 个节点的值
 
 ```c
 int find(SingleList L, int i)
@@ -90,9 +171,7 @@ int find(SingleList L, int i)
 
 ```
 
-
-
-单链表的头插入p q
+### 单链表的非头插入p q
 
 ```c
 void Add(SingleList *L, Node *p, Node *q)
@@ -104,18 +183,14 @@ void Add(SingleList *L, Node *p, Node *q)
 
 ```
 
-
-
-
-
-单链表插入一个节点 `q` 到第 `i` 个位置之后
+### 单链表插入一个节点 `q` 到第 `i` 个位置之后
 
 ```c
 Bool Add(SingleList *L, int i)
 {
     // 判断越界
     if (i < 0 || i >= L->n)
-        return false;
+        return 0;
         
     Node *p = L->first;  // 从头节点开始
     while (i > 0)
@@ -130,16 +205,12 @@ Bool Add(SingleList *L, int i)
     
     L->n++;  // 更新链表长度
     
-    return true;
+    return 1;
 }
 
 ```
 
-
-
-
-
-单链表中第 `i` 个位置插入一个值为 `x` 的新节点
+### 单链表中第 `i` 个位置插入一个值为 `x` 的新节点
 
 ```c
 Bool Add(SingleList *L, int i, int x)
@@ -169,11 +240,18 @@ Bool Add(SingleList *L, int i, int x)
 
 ```
 
+### 头插
 
+```c
+//非头部插入
+    q->link = p->link;  
+    p->link = q; 
+//头部插入
+		q->link = L->first;  
+		L->first = q;
+```
 
-
-
-单链表的删除一个节点
+### 单链表删除一个节点
 
 ```c
 void Delete(SingleList *L)
@@ -181,7 +259,7 @@ void Delete(SingleList *L)
     Node* p = L->first;   //将指针 p 初始化为指向链表的第一个节点
 
     while (p->link != q)
-        p = p->link;    //找到指向目标节点 q 的前驱节点 p
+        p = p->link;      //找到指向目标节点 q 的前驱节点 p
 
     p->link = q->link;    //将前驱节点 p 的 link 指针指向目标节点 q 的下一个节点
     free(q);
@@ -190,9 +268,7 @@ void Delete(SingleList *L)
 
 ```
 
-
-
-单链表中删除指定元素节点
+### 单链表中删除指定元素节点
 
 ```c
 void Delete(SingleList *L)
@@ -218,13 +294,7 @@ void Delete(SingleList *L)
 
 ```
 
-
-
-
-
-
-
-单链表中删除指定值的节点
+### 单链表中删除指定值的节点
 
 ```c
 void Delete(SingleList *L, int x)
@@ -254,11 +324,7 @@ void Delete(SingleList *L, int x)
 
 ```
 
-
-
-
-
-顺序表逆置
+### 顺序表逆置
 
 ```c
 void Reverse(SeqList *L)
@@ -274,11 +340,7 @@ void Reverse(SeqList *L)
 
 ```
 
-
-
-
-
-???顺序表删除某个区间内的节点
+### ???顺序表删除某个区间内的节点
 
 ```c
 void Delete(SingleList *L)
@@ -295,7 +357,7 @@ void Delete(SingleList *L)
     }
     q = q->link;
     p->link = q;
-    while(k->link!=NULL){
+    while(k->link != q){
       p = p->link;
       free(k);
       k = p;
@@ -305,11 +367,7 @@ void Delete(SingleList *L)
 
 ```
 
-
-
-
-
-带表头节点 找到最小 插到最前面（考试画阴影）
+### 带表头节点 找到最小 插到最前面（考试画阴影）
 
 ```c
 void MoveMinToHead(SingleList *L)
@@ -334,11 +392,7 @@ void MoveMinToHead(SingleList *L)
 
 ```
 
-
-
-
-
-两个单链表 `LA` 和 `LB` 的合并，并将结果存储在新链表 `LC` 
+### 两个单链表 `LA` 和 `LB` 的合并，并将结果存储在新链表 `LC` 
 
 ```c
 void Move(SingleList *LA, SingleList *LB, SingleList *LC)
@@ -371,28 +425,27 @@ void Move(SingleList *LA, SingleList *LB, SingleList *LC)
         PC->link = q;
         PC = q;
         q->link = NULL;
+        LC->n++;
     }
 
     // 如果 PA 不为空，将剩余的 PA 链接到 LC
     if (PA != NULL && PB == NULL)
     {
         PC->link = PA;
+        LC->n++;
     }
 
     // 如果 PB 不为空，将剩余的 PB 链接到 LC
     if (PB != NULL && PA == NULL)
     {
         PC->link = PB;
+        LC->n++;
     }
 }
 
 ```
 
-
-
-
-
-单链表中删除第 `i` 个元素
+### 单链表中删除第 `i` 个元素
 
 ```c
 bool Delete(SingleList *L, int i)
@@ -424,9 +477,7 @@ bool Delete(SingleList *L, int i)
 }
 ```
 
-
-
-两个数组（或链表）之间的交集
+### 两个数组（或链表）之间的交集
 
 ```c
 int C[100], int k = 0; // 定义结果数组 C 和索引 k
@@ -448,9 +499,7 @@ for (int i = 0; i < A.n; i++)
 
 ```
 
-
-
-两个单链表 `A` 和 `B` 中的公共元素
+### 两个单链表 `A` 和 `B` 中的公共元素
 
 ```c
 void FindCommonElements(SingleList *A, SingleList *B)
@@ -471,10 +520,64 @@ void FindCommonElements(SingleList *A, SingleList *B)
             PB = PB->link; // 移动 PB 指针到下一个节点
         }
         PA = PA->link; // 移动 PA 指针到下一个节点
+      	PB = B->first;
     }
 }
 
 ```
+
+
+
+## 顺序栈定义
+
+```c
+typedef struct stack
+{
+  int top;
+  int maxSize;
+  ElemType *element     //数组
+}Stack;
+```
+
+
+
+```c
+//入栈
+S.element[++top]  //top指向-1  移top再赋值
+S.element[top++]  //top指向0   先赋值后移top
+//出栈
+S.element[--top]   
+S.element[top--]
+ 
+```
+
+
+
+
+
+## 队列定义
+
+```c
+typedef struct queue
+{
+  int front;
+  int rear;
+  int maxSize;
+  ElemType *element;
+}Queue;
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -987,6 +1090,20 @@ void InDegree (LGraph *lg , int * b) {
 邻接表 G 转换为 邻接矩阵
 
 ````c
+
+for(int i = 0; i < mg.n; i++){
+  for(int j = 0;j < mg.n; j++){
+    mg.a[i][j] = 0;
+  }
+}
+
+
+
+
+
+
+
+
 // 邻接表 G 转换为 邻接矩阵
 void LgToMg (LGraph *lg , mGraph *mg) {
     mg->e = lg->e;  // 复制边的数量
@@ -1021,7 +1138,6 @@ void MgToLg (mGraph *mg , LGraph *lg) {
                 q->adjVex = j;  // 邻接点的顶点编号
                 q->nextArc = lg->a[i];  // 插入到邻接表的头部
                 lg->a[i] = q;  // 更新邻接表头指针
-                lg->e++;  // 更新边的数量
             }
         }
     }
