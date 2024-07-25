@@ -2,8 +2,6 @@
 
 赋值号记为等号会不会好记一点    给出图片中代码 注释以及伪代码
 
-
-
 ## 线性表数组实现（顺序表）
 
 > 基于数组
@@ -16,8 +14,6 @@ typedef struct seqList
   ElemType *element;  	  // 指针 element 指向顺序表的存储空间的首地址
 }SeqList;
 ```
-
-
 
 ### 遍历数组
 
@@ -526,8 +522,6 @@ void FindCommonElements(SingleList *A, SingleList *B)
 
 ```
 
-
-
 ## 顺序栈定义
 
 ```c
@@ -539,8 +533,6 @@ typedef struct stack
 }Stack;
 ```
 
-
-
 ```c
 //入栈
 S.element[++top]  //top指向-1  移top再赋值
@@ -548,12 +540,7 @@ S.element[top++]  //top指向0   先赋值后移top
 //出栈
 S.element[--top]   
 S.element[top--]
- 
 ```
-
-
-
-
 
 ## 队列定义
 
@@ -567,23 +554,130 @@ typedef struct queue
 }Queue;
 ```
 
+## 二叉树
+
+### 定义
+
+```c
+//节点
+typedef struct btnode {
+    ElemType element;
+    struct btnode* lChild;
+    struct btnode* rChild;
+} BTNode;
+
+//树
+typedef struct binarytree {
+		BTNode *root;              // 指向二叉树根节点的指针
+} BinartTree;
+
+```
+
+### 先序遍历
+
+```c
+void PreOrderTree(BinaryTree *bt)
+{
+  PreOrder(bt->root);
+}
+
+void PreOrder(BTNode *T)
+{
+  if(!T)
+    return;
+  
+  printf("%c", T->element);
+  PreOrder(T->lChild);
+  PreOrder(T->rChild);
+}
+```
+
+### 中序遍历
+
+```c
+void InOrderTree(BinaryTree *bt)
+{
+  InOrder(bt->root);
+}
+
+void InOrder(BTNode *T)
+{
+  if(!T)
+    return;
+  
+  InOrder(T->lChild);
+  printf("%c", T->element);
+  InOrder(T->rChild);
+}
+```
+
+### 后序遍历
+
+```c
+void PostOrderTree(BinaryTree *bt)
+{
+  InOrder(bt->root);
+}
+
+void PostOrder(BTNode *T)
+{
+  if(!T)
+    return;
+  
+  PostOrder(T->lChild);
+  PostOrder(T->rChild);
+  printf("%c", T->element);
+}
+```
+
+### 先序构造二叉树
+
+```c
+BTNode* PreCreateBT(BTNode *t)
+{
+    int x;
+    scanf("%d", &x); // 从输入中读取一个整数
+    if (x == 0)      // 如果读取的整数是0，那么创建一个空节点
+        T = NULL;
+    else
+    {
+        // 为新的节点分配内存
+        T = (binary_tree_node *)malloc(sizeof(binary_tree_node));
+        T->data = x;                   // 将读取的整数赋值给新节点的数据域
+        Binary_tree_Create(T->lchild); // 递归地创建左子树
+        Binary_tree_Create(T->rchild); // 递归地创建右子树
+    }
+    return t;
+}
 
 
+void PreMakeTree(BinaryTree *bt){
+  bt->root = PreCreate(bt->root);
+}
+```
 
+### 交换二叉树的左右子树
 
+```c
+// 交换二叉树左右子树的函数
+void SwapTree(BinaryTree *bt) {
+    Swap(bt->root);
+}
 
-
-
-
-
-
-
-
-
+// 递归函数：交换二叉树节点的左右子树
+void Swap(BTNode *t) {
+    if (!t) return;
+    BTNode *temp = t->lChild;
+    t->lChild = t->rChild;
+    t->rChild = temp;
+    Swap(t->lChild);
+    Swap(t->rChild);
+}
+```
 
 不需要管具体实现 按照实现逻辑写
 
-二叉树求节点个数
+### 二叉树求节点个数
 
 ```c
 // 计算二叉树 bt 中非叶子节点的数量
@@ -601,15 +695,7 @@ int Count(BINode *t)
 }
 ```
 
-
-
-
-
-
-
-
-
-二叉树叶节点的个数
+### 二叉树叶节点的个数
 
 ```c
 // 计算二叉树 bt 中非叶子节点的数量
@@ -632,11 +718,7 @@ int Count(BINode *t)
 
 ```
 
-
-
-
-
-二叉树度为2的节点
+### 二叉树度为2的节点
 
 ```c
 // 统计二叉树中度为2的节点个数
@@ -655,9 +737,7 @@ int Count(BINode *t) {
 
 ```
 
-
-
-二叉树度为1
+### 二叉树度为1
 
 ```c
 // 统计二叉树中度为1的节点个数
@@ -676,9 +756,7 @@ int Count(BINode *t) {
 
 ```
 
-
-
-计算二叉树高度(左右子树判断)
+### 计算二叉树高度(左右子树判断)
 
 ```c
 // 计算二叉树高度
@@ -701,9 +779,7 @@ int Height(BINode *t) {
 
 ```
 
-
-
-判断一棵树是否为满二叉树（节点数与高度判断）
+### 判断一棵树是否为满二叉树（节点数与高度判断）
 
 ```c
 Bool CheckFullTree(BinaryTree *bt) {
@@ -728,9 +804,7 @@ Bool CheckFull(BINode *t) {
 
 ```
 
-
-
-！！！判断一棵二叉树是否是一棵大堆
+### ！！！判断一棵二叉树是否是最大堆
 
 > 加入flag if判断反条件 flag置为0 
 
@@ -758,9 +832,32 @@ Bool Check(BINode *t) {
 
 ```
 
+### 判断是否是最小堆
 
+```c
+// 判断二叉树是否为最小堆的函数
+Bool CheckTree(BinaryTree *bt) {
+    Check(bt->root);
+    return flag;
+}
 
-判断是否为二叉扩充树
+// 递归函数：检查二叉树节点是否满足最小堆性质
+void Check(BTNode *t) {
+    if (!t) return;
+    // 检查左子节点
+    if (t->lChild && t->element > t->lChild->element) {
+        flag = 0;
+    }
+    // 检查右子节点
+    if (t->rChild && t->element > t->rChild->element) {
+        flag = 0;
+    }
+    Check(t->lChild);
+    Check(t->rChild);
+}
+```
+
+### 判断是否为二叉扩充树
 
 ```c
 // 判断二叉树是否为扩充二叉树
