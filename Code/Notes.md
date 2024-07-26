@@ -31,8 +31,6 @@ int main() {
 
 ```
 
-
-
 ### 顺序表查找
 
 ```c
@@ -233,7 +231,6 @@ Bool Add(SingleList *L, int i, int x)
 
     return 1;
 }
-
 ```
 
 ### 头插
@@ -261,7 +258,6 @@ void Delete(SingleList *L)
     free(q);
     L->n--;
 }
-
 ```
 
 ### 单链表中删除指定元素节点
@@ -287,7 +283,6 @@ void Delete(SingleList *L)
     k->link = q;
     p->link = q;
 }
-
 ```
 
 ### 单链表中删除指定值的节点
@@ -317,7 +312,6 @@ void Delete(SingleList *L, int x)
 释放 q 指向的节点内存。
 更新链表节点计数 L.n。
 */
-
 ```
 
 ### 顺序表逆置
@@ -333,7 +327,6 @@ void Reverse(SeqList *L)
         L->element[L->n - i - 1] = temp;
     }
 }
-
 ```
 
 ### ???顺序表删除某个区间内的节点
@@ -360,7 +353,6 @@ void Delete(SingleList *L)
       L.n--;
     }
 }
-
 ```
 
 ### 带表头节点 找到最小 插到最前面（考试画阴影）
@@ -384,7 +376,6 @@ void MoveMinToHead(SingleList *L)
   	p->link = L->first; 
     L->first = q;
 }
-
 ```
 
 ### 两个单链表 `LA` 和 `LB` 的合并，并将结果存储在新链表 `LC` 
@@ -437,7 +428,6 @@ void Move(SingleList *LA, SingleList *LB, SingleList *LC)
         LC->n++;
     }
 }
-
 ```
 
 ### 单链表中删除第 `i` 个元素
@@ -491,7 +481,6 @@ for (int i = 0; i < A.n; i++)
         }
     }
 }
-
 ```
 
 ### 两个单链表 `A` 和 `B` 中的公共元素
@@ -518,7 +507,6 @@ void FindCommonElements(SingleList *A, SingleList *B)
       	PB = B->first;
     }
 }
-
 ```
 
 ## 顺序栈定义
@@ -569,7 +557,6 @@ typedef struct btnode {
 typedef struct binarytree {
 		BTNode *root;              // 指向二叉树根节点的指针
 } BinartTree;
-
 ```
 
 ### 先序遍历
@@ -649,7 +636,6 @@ BTNode* PreCreateBT(BTNode *t)
     return t;
 }
 
-
 void PreMakeTree(BinaryTree *bt){
   bt->root = PreCreate(bt->root);
 }
@@ -714,7 +700,6 @@ int Count(BINode *t)
     else
         return 1; // 自己是 ➕1
 }
-
 ```
 
 ### 二叉树度为2的节点
@@ -733,7 +718,6 @@ int Count(BINode *t) {
     else
         return Count(t->rChild) + Count(t->lChild);      //自己不是不加自己
 }
-
 ```
 
 ### 二叉树度为1
@@ -752,7 +736,6 @@ int Count(BINode *t) {
     else
         return Count(t->rChild) + Count(t->lChild);
 }
-
 ```
 
 ### 计算二叉树高度(左右子树判断)
@@ -775,7 +758,6 @@ int Height(BINode *t) {
 递归会一直展开到叶子节点（即没有子节点的节点），叶子节点的高度为 1。
 最终递归层层返回，根节点的高度即为整棵树的高度。
 */
-
 ```
 
 ### 判断一棵树是否为满二叉树（节点数与高度判断）
@@ -800,7 +782,6 @@ Bool CheckFull(BINode *t) {
     if (n == pow(2, h) - 1) return 1;
     return 0;
 }
-
 ```
 
 ### ！！！判断一棵二叉树是否是最大堆
@@ -828,7 +809,6 @@ Bool Check(BINode *t) {
 完全二叉树：所有层（除了最后一层）必须是满的，且最后一层的节点必须尽量左对齐。
 堆序性：每个节点的值都必须大于或等于其子节点的值。
 */
-
 ```
 
 ### 折半搜索
@@ -906,7 +886,6 @@ Bool Check(SeqList *L) {
 ### 判断是否是二叉搜索树
 
 ```c
-
 int flag = 1;
 
 // 判断一棵二叉树是否为扩充二叉树
@@ -930,7 +909,6 @@ Bool Check(BINode *t) {
 右子树的所有节点值都大于当前节点的值。
 左右子树也必须是二叉搜索树。
 */
-
 ```
 
 ### 判断一棵二叉搜索树是AVL
@@ -1014,7 +992,6 @@ Bool Search(MGraph *mg, int u, int v) {
 
     return 0; // 如果不存在边，返回 0
 }
-
 ```
 
 ### 计算一个节点的入度
@@ -1034,7 +1011,6 @@ int InDegree(MGraph *mg, int v) {
     }
     return cnt; // 返回入度计数
 }
-
 ```
 
 ### 在图G中利用邻接表存储，在顶点u和v之间插入一条边
@@ -1062,7 +1038,6 @@ Bool AddEdge(Graph *lg, int u, int v)
 
     return 1; // 返回1表示边插入成功
 }
-
 ```
 
 ### 计算顶点u的出度
@@ -1085,7 +1060,6 @@ int OutDegree(Graph *lg, int u)
 
     return cnt; // 返回出度
 }
-
 ```
 
 ### 计算顶点u的入度
@@ -1110,7 +1084,6 @@ int InDegree(Graph *lg, int u)
 
     return cnt; // 返回入度
 }
-
 ```
 
 ### 有向图 G 采用邻接表存储，求各顶点的出度
@@ -1145,7 +1118,6 @@ void InDegree (LGraph *lg , int * b) {
         }
     }
 }
-
 ```
 
 ### 邻接表 G 转换为 邻接矩阵
@@ -1157,10 +1129,6 @@ for(int i = 0; i < mg.n; i++){
     mg.a[i][j] = 0;
   }
 }
-
-
-
-
 
 
 // 邻接表 G 转换为 邻接矩阵
@@ -1176,7 +1144,6 @@ void LgToMg (LGraph *lg , mGraph *mg) {
         }
     }
 }
-
 ````
 
 ### 邻接矩阵 G 转换为 邻接表
@@ -1199,7 +1166,6 @@ void MgToLg (mGraph *mg , LGraph *lg) {
         }
     }
 }
-
 ```
 
 
@@ -1224,7 +1190,6 @@ void DFS(LGraph *lg, int v, int *visited)
         p = p->nextArc;
     }
 }
-
 ```
 
 ### 检查一个图是否连通
@@ -1255,7 +1220,6 @@ Bool CheckConnected(LGraph *lg)
     // 所有顶点都被访问过，图连通
     return 1; // 返回1表示图连通
 }
-
 ```
 
 ### 计算图中连通分量数量
@@ -1292,7 +1256,6 @@ int Count(LGraph *lg)
     // 返回连通分量的数量 cnt
     return cnt;
 }
-
 ```
 
 ### 判断顶点i到顶点j是否有路径（只要给出顶点序号 都需要越界判断）
