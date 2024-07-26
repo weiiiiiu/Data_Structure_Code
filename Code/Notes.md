@@ -156,7 +156,7 @@ Bool find(SingleList L, int x)
 int find(SingleList L, int i)
 {
     if (i <= 0 || i > L.n) return -1;  // 检查 i 是否在合法范围内
-    Node* P = L->first;  // P 指向链表的第一个节点
+    Node* P = L->first;                   // P 指向链表的第一个节点
     while (i > 0)  // 遍历链表直到找到第 i 个节点
     {
         P = P->link;  // P 指向下一个节点
@@ -243,8 +243,8 @@ Bool Add(SingleList *L, int i, int x)
     q->link = p->link;  
     p->link = q; 
 //头部插入
-		q->link = L->first;  
-		L->first = q;
+	q->link = L->first;  
+	L->first = q;
 ```
 
 ### 单链表删除一个节点
@@ -380,7 +380,6 @@ void MoveMinToHead(SingleList *L)
     Node *q = L->first;     //q跟first都是指向第一个节点
     while (q->link->element != min)
         q = q->link;        //q指向最小节点前一个节点
-		 
     q = L.first;
   	p->link = L->first; 
     L->first = q;
@@ -1158,6 +1157,10 @@ for(int i = 0; i < mg.n; i++){
     mg.a[i][j] = 0;
   }
 }
+
+
+
+
 
 
 // 邻接表 G 转换为 邻接矩阵
